@@ -1,8 +1,6 @@
-Pipeline de Extração Tratamento de Dados
+Pipeline de Extração Tratamento de Dados - dlthub e dbt-core
 =============================================================
 
-<br>
- O projeto visa a criação e implantação do Data Warehouse do Hospital Prontocardio.
 <br>
 <br>
 <br>
