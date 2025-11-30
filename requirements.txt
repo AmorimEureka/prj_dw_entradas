@@ -1,0 +1,8 @@
+
+apache-airflow-providers-oracle
+oracledb
+apache-airflow-providers-postgres>=6.0.0
+dlt[postgres]>=1.4.0
+astronomer-cosmos[dbt-postgres]
+alembic
+dotenv
