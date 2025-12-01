@@ -1,4 +1,6 @@
 FROM quay.io/astronomer/astro-runtime:13.0.0
+# FROM astrocrpublic.azurecr.io/runtime:3.1-5
+
 
 USER root
 
@@ -11,9 +13,8 @@ COPY setup_instant_client_postgres.sh /usr/local/airflow/setup_instant_client_po
 RUN sh /usr/local/airflow/setup_instant_client_postgres.sh
 
 # Definir as variáveis de ambiente para Oracle e Postgres Instant Client
-ENV LD_LIBRARY_PATH=/usr/local/airflow/.oracle/instantclient_19_23:${LD_LIBRARY_PATH}
+ENV LD_LIBRARY_PATH=/usr/local/airflow/.oracle/instantclient_19_23/
 ENV LD_LIBRARY_PATH_POSTGRES=/usr/local/airflow/.postgresql/data/instantclient_17_0/
-ENV ORACLE_HOME=/usr/local/airflow/.oracle/instantclient_19_23
 ENV PYTHONUNBUFFERED 1
 
 # Instalar dependências de compilação e desenvolvimento

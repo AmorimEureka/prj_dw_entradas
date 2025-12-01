@@ -23,9 +23,7 @@ services:
       - POSTGRES_HOST=dwpostgres
     volumes:
       - ./dags:/usr/local/airflow/dags
-      - ./dbt_prontocardio:/usr/local/airflow/dbt
-      - ./include/oracle:/usr/local/airflow/.oracle/instantclient_19_23/
-      - ./include/postgresql:/usr/local/airflow/.postgresql/data/instantclient_17_0/
+      - ./dbt_dw_entradas:/usr/local/airflow/dbt
       - ./script_ingestao:/usr/local/airflow/script_ingestao
       - ./.dlt:/usr/local/airflow/.dlt
     depends_on:
@@ -38,25 +36,31 @@ services:
       timeout: 30s
       retries: 5
 
-
   scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./script_ingestao:/usr/local/airflow/script_ingestao
       - ./.dlt:/usr/local/airflow/.dlt
+      - ./dbt_dw_entradas:/usr/local/airflow/dbt
     depends_on:
       - dwpostgres
     networks:
       - network_dw_prontocardio
 
   triggerer:
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./script_ingestao:/usr/local/airflow/script_ingestao
       - ./.dlt:/usr/local/airflow/.dlt
+      - ./dbt_dw_entradas:/usr/local/airflow/dbt
     depends_on:
       - dwpostgres
     networks:
       - network_dw_prontocardio
-
 
 volumes:
   postgres-volume:
