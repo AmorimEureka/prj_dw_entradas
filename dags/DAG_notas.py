@@ -9,6 +9,10 @@ from airflow.providers.oracle.hooks.oracle import OracleHook
 from dlt.common import pendulum
 from dlt.helpers.airflow_helper import PipelineTasksGroup
 
+from cosmos import DbtTaskGroup, ProjectConfig
+from include.profiles import perfil_postgres
+from include.constants import path_prj_dbt, venv_execution_config, render_skip_tests_config
+
 
 default_task_args = {
     "owner": "airflow",
@@ -64,12 +68,15 @@ def load_oracle_data():
     service_name = extra.get('service_name')
     os.environ["ORACLE_SERVICE"] = service_name
 
+    # Desabilita partial parse do dbt para garantir recompilação completa
+    os.environ["DBT_PARTIAL_PARSE"] = "0"
+
 # ============================================================================================
 
 
     # set `use_data_folder` to True to store temporary data on the `data` bucket.
     # Use only when it does not fit on the local storage
-    tasks = PipelineTasksGroup(
+    tasks_dlt = PipelineTasksGroup(
         "notas_fiscais_pipeline_decomposed", use_data_folder=False, wipe_local_data=True
     )
 
@@ -90,7 +97,7 @@ def load_oracle_data():
 
     # decompose="serialize" ira converter os resources do dlt
     # em tarefas do Airflow. Para desabilitar isso defina-o como "none"
-    tasks.add_run(
+    tsk_dlt = tasks_dlt.add_run(
         pipeline,
         source,
         decompose="serialize",
@@ -98,5 +105,15 @@ def load_oracle_data():
         retries=0,
     )
 
+    tsk_dbt = DbtTaskGroup(
+        group_id="tasks_dbt_entradas",
+        project_config=ProjectConfig(path_prj_dbt),
+        profile_config=perfil_postgres,
+        execution_config=venv_execution_config,
+        render_config=render_skip_tests_config,
+    )
 
-load_oracle_data()
+    tsk_dlt >> tsk_dbt
+
+
+dag = load_oracle_data()
