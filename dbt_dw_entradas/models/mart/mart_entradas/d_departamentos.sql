@@ -1,7 +1,7 @@
 {{
     config(
         materialized = 'incremental',
-        unique_key = "CD_SETOR",
+        unique_key = 'cd_setor',
         on_schema_change = 'sync_all_columns',
         tags = ['entradas']
     )
@@ -10,8 +10,8 @@
 WITH source_departamentos
     AS (
         SELECT
-            "CD_SETOR",
-            "NM_SETOR"
+            cd_setor,
+            nm_setor
         FROM {{ ref( 'stg_departamentos' ) }}
 ),
 treats

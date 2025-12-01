@@ -1,7 +1,7 @@
 {{
     config(
         materialized = 'incremental',
-        unique_key = "CD_FORNECEDOR",
+        unique_key = 'cd_fornecedor',
         on_schema_change = 'sync_all_columns',
         tags = ['entradas']
     )
@@ -10,12 +10,12 @@
 WITH source_fornecedores
     AS (
         SELECT
-          "CD_FORNECEDOR",
-          "CD_CIDADE",
-          "CD_SETOR",
-          "NM_FORNECEDOR",
-          "NM_FANTASIA",
-          "NR_CGC_CPF" AS "CNPJ"
+          cd_fornecedor,
+          cd_cidade,
+          cd_setor,
+          nm_fornecedor,
+          nm_fantasia,
+          nr_cgc_cpf AS cnpj
         FROM {{ ref( 'stg_fornecedores' ) }}
 ),
 treats

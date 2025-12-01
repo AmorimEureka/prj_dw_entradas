@@ -7,24 +7,24 @@
 WITH source_ent_serv
     AS (
         SELECT
-            "CD_ENT_SERV",
-            "CD_CON_PAG",
-            "CD_FORNECEDOR",
-            "NR_DOCUMENTO",
-            "NR_SERIE",
-            "CD_OFICINA",
-            "CD_TIP_DOC",
-            "CD_USUARIO",
-            "DT_ENTRADA",
-            "DT_EMISSAO",
-            "DS_OBSERVACAO",
-            "VL_TOTAL"
+            cd_ent_serv,
+            cd_con_pag,
+            cd_fornecedor,
+            nr_documento,
+            nr_serie,
+            cd_oficina,
+            cd_tip_doc,
+            cd_usuario,
+            dt_entrada,
+            dt_emissao,
+            ds_observacao,
+            vl_total
         FROM {{ ref('stg_ent_serv') }}
 ),
 chave_substituta
      AS (
         SELECT
-            {{ dbt_utils.generate_surrogate_key(['"CD_FORNECEDOR"', '"NR_DOCUMENTO"']) }} AS "SK_FORNECEDOR_DOCUMENTO",
+            {{ dbt_utils.generate_surrogate_key(['cd_fornecedor', 'nr_documento']) }} AS sk_fornecedor_documento,
             *
         FROM source_ent_serv
 )
