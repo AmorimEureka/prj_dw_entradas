@@ -23,6 +23,7 @@ models:
     staging:
       staging_entradas:
         +materialized: view
+        +schema: staging_entradas
 
     # models/intermediate
     intermediate:
