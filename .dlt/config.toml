@@ -15,6 +15,7 @@ table_names = [
     "SETOR",
     "FORNECEDOR",
     "TIP_DOC",
+    "OFICINA",
 ]
 
 
@@ -148,5 +149,16 @@ included_columns = [
 ]
 incremental_column="CD_TIP_DOC"
 primary_key="CD_TIP_DOC"
+initial_value=1
+write_disposition="merge"
+
+[sources.sql_database.OFICINA]
+included_columns = [
+    "CD_OFICINA",
+    "DS_OFICINA",
+    "CD_SETOR"
+]
+incremental_column="CD_OFICINA"
+primary_key="CD_OFICINA"
 initial_value=1
 write_disposition="merge"

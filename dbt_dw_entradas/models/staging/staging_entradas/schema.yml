@@ -146,3 +146,13 @@ models:
         description: "Código do documento fiscal"
       - name: ds_tip_doc
         description: "Descrição do tipo de documento fiscal"
+
+  - name: stg_oficina
+    desccription: "Staging com a relacao das oficinas/setores"
+    columns:
+      - name: cd_oficina
+        description: "Código da oficina"
+      - name: ds_oficina
+        description: "Descrição da oficina"
+      - name: cd_setor
+        description: "Código do setor vinculado"

@@ -158,6 +158,16 @@ sources:
           - name: DT_EXTRACAO
             description: "Data da extração"
 
+      - name: oficina
+        description: "Tabela oficina dos departamentos; permite relação com setores"
+        columns:
+          - name: cd_oficina
+            description: "Código da oficina"
+          - name: ds_oficina
+            description: "Descrição da oficina"
+          - name: cd_setor
+            description: "Código do setor vinculado"
+
 
 
 

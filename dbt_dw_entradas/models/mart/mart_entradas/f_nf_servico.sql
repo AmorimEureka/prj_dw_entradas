@@ -15,6 +15,7 @@ SELECT
     nr_documento,
     nr_serie,
     cd_oficina,
+    cd_setor,
     cd_tip_doc,
     cd_usuario,
     dt_entrada,
