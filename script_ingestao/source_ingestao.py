@@ -85,7 +85,7 @@ def gera_recursos(tabela: str):
                 consulta = f"""
                         SELECT {campos_tabelas}
                         FROM DBAMV.{tabela}
-                        WHERE {config_cursor_incremental} > :last_value
+                        WHERE {config_cursor_incremental} >= :last_value
                         ORDER BY {config_cursor_incremental} ASC
                     """
                                          # Faz como se fosse um replace no placehold ':last_value'
